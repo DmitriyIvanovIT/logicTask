@@ -1,31 +1,33 @@
 'use strict';
 
-const cartPrice = (price, count, promo) => {
-    if (count >= 5 && count < 10) {
-        price *= 0.95;
-    } else if (count >= 10) {
-        price *= 0.9;
-    }
+let allNumbers = [1, 2, 4, 5, 6, 7, 8],
+    someNumbers = [1, 2, 'Hello', 4, 5, 'world', 6, 7, 8],
+    noNumbers = ['здесь', 'нет', 'чисел'];
 
-    if (price > 100000 && price < 150000) {
-        price *= 0.8;
-    } else if (price >= 150000) {
-        price -= 50000;
-    }
+function isNumber(val) {
+    return typeof val === 'number';
+}
 
-    if (promo !== undefined) {
-        if (promo === '15' && price >= 25000) {
-            price *= 0.85;
-        } else if (promo === '100') {
-            if (price <= 100) {
-                price = 0;
+const isSomeTrue = function(array, func) {
+    let i = 0;
+
+    const filterFunc = (item) => {
+        if (i < (array.length - 1)) {
+            if (!func(item)) {
+                i++;
+                filterFunc(array[i]);
             } else {
-                price -= 100;
+                return;
             }
         }
-    }
+    };
 
-    return price;
+    filterFunc(array[i]);
+
+    return func(array[i]);
+    
 };
 
-console.log(cartPrice(150000, 5, '100'));
+console.log(isSomeTrue(allNumbers, isNumber)); //вернет true
+console.log(isSomeTrue(someNumbers, isNumber)); //вернет true
+console.log(isSomeTrue(noNumbers, isNumber)); //вернет false
