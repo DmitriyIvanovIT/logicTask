@@ -1,33 +1,19 @@
 'use strict';
 
-let allNumbers = [1, 2, 4, 5, 6, 7, 8],
-    someNumbers = [1, 2, 'Hello', 4, 5, 'world', 6, 7, 8],
-    noNumbers = ['здесь', 'нет', 'чисел'];
+const func = (hour, minutes) => {
+    if (hour > 12) {
+        hour = hour - 12;
+    }
 
-function isNumber(val) {
-    return typeof val === 'number';
-}
+    let res =  (hour+(minutes/60))*30 - minutes*6;
 
-const isSomeTrue = function(array, func) {
-    let i = 0;
+    if (res < 0) {
+        res *= -1;
+    }
 
-    const filterFunc = (item) => {
-        if (i < (array.length - 1)) {
-            if (!func(item)) {
-                i++;
-                filterFunc(array[i]);
-            } else {
-                return;
-            }
-        }
-    };
-
-    filterFunc(array[i]);
-
-    return func(array[i]);
-    
+    console.log(res);    
 };
 
-console.log(isSomeTrue(allNumbers, isNumber)); //вернет true
-console.log(isSomeTrue(someNumbers, isNumber)); //вернет true
-console.log(isSomeTrue(noNumbers, isNumber)); //вернет false
+func(6, 0);
+func(3, 0);
+func(3, 30);
