@@ -7,11 +7,12 @@ const cartPrice = (price, count, promo) => {
         price *= 0.9;
     }
 
-    if (price > 100000 && price < 150000) {
-        price *= 0.8;
-    } else if (price >= 150000) {
-        price -= 50000;
-    }
+    if (price > 100000) {
+        let temp = price - 100000;
+        price -= temp;
+        temp *= 0.8;
+        price += temp;
+    } 
 
     if (promo !== undefined) {
         if (promo === '15' && price >= 25000) {
